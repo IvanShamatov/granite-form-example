@@ -1,7 +1,6 @@
 require_relative './lib/granite/form'
 require 'pry'
 
-
 class ActiveDataExample
   include Granite::Form[:active_data]
 
@@ -15,8 +14,6 @@ example = ActiveDataExample.new.inputs(title: 'test title')
 puts example.validate!
 puts example.valid?
 puts example.errors
-
-
 
 class ActiveModelExample
   include Granite::Form[:active_model]
@@ -32,9 +29,7 @@ puts example.validate!
 puts example.valid?
 puts example.errors
 
-
-
-class ReformExample
+class ReformRailsExample
   include Granite::Form[:reform]
 
   form do
@@ -43,12 +38,10 @@ class ReformExample
   end
 end
 
-example = ReformExample.new.inputs(title: 'test title')
+example = ReformRailsExample.new.inputs(title: 'test title')
 puts example.validate!
 puts example.valid?
 puts example.errors
-
-
 
 class DryValidationExample
   include Granite::Form[:dry_validation]

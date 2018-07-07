@@ -1,6 +1,6 @@
 module Granite
   module Form
-    module ReformDriver
+    module ReformRailsDriver
 
       def self.included(base)
         require 'reform'
@@ -8,27 +8,23 @@ module Granite
         base.extend ClassMethods
       end
 
-      # Common interface for all drivers
-      # inputs to set form data
-      # valid?, validate!, errors to check form data
-
       def inputs(args)
-        @data = OpenStruct.new(args)
+        @_gf_inputs = OpenStruct.new(args)
         self
       end
 
       def valid?
         validate!
-        @inputs.valid?
+        @_gf_form.valid?
       end
 
       def validate!
-        @inputs ||= self.class._form_object.new(@data)
+        @_gf_form ||= self.class._form_object.new(@_gf_inputs)
       end
 
       def errors
         validate!
-        @inputs.errors
+        @_gf_form.errors
       end
 
       module ClassMethods

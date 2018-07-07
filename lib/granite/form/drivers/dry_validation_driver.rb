@@ -7,27 +7,23 @@ module Granite
         base.extend ClassMethods
       end
 
-      # Common interface for all drivers
-      # inputs to set form data
-      # valid?, validate!, errors to check form data
-
       def inputs(args)
-        @data = args
+        @_gf_inputs = args
         self
       end
 
       def valid?
         validate!
-        @inputs.success?
+        @_gf_form.success?
       end
 
       def validate!
-        @inputs ||= self.class._form_object.call(@data)
+        @_gf_form ||= self.class._form_object.call(@_gf_inputs)
       end
 
       def errors
         validate!
-        @inputs.errors
+        @_gf_form.errors
       end
 
       module ClassMethods

@@ -1,6 +1,6 @@
 require_relative 'form/drivers/active_data_driver'
 require_relative 'form/drivers/active_model_driver'
-require_relative 'form/drivers/reform_driver'
+require_relative 'form/drivers/reform_rails_driver'
 require_relative 'form/drivers/dry_validation_driver'
 
 module Granite
@@ -10,7 +10,7 @@ module Granite
     MODULE_MAPPING = {
       active_data: ActiveDataDriver,
       active_model: ActiveModelDriver,
-      reform: ReformDriver,
+      reform: ReformRailsDriver,
       dry_validation: DryValidationDriver
     }.freeze
 

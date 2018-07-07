@@ -6,25 +6,26 @@ module Granite
         base.extend ClassMethods
       end
 
-      # Common interface for all drivers
-      # inputs to set form data
-      # valid?, validate!, errors to check form data
-
       def inputs(args)
-        @inputs ||= self.class._form_object.new(args)
+        @_gf_inputs = args
         self
       end
 
       def valid?
-        @inputs.valid?
+        validate!
+        @_gf_form.valid?
       end
 
       def validate!
-        @inputs.validate!
+        @_gf_form ||= self.class._form_object.new(@_gf_inputs)
+        @_gf_form.validate!
+      rescue ActiveModel::UnknownAttributeError
+        false
       end
 
       def errors
-        @inputs.errors
+        validate!
+        @_gf_form.errors
       end
 
       module ClassMethods
